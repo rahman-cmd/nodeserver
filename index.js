@@ -97,7 +97,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Ema jon server is running');
+    res.send('Travel server is running');
 });
 
 app.listen(port, () => {
