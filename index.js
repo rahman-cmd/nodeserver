@@ -64,13 +64,23 @@ async function run() {
         });
 
         //delete product from the database
-        app.delete("/deleteProduct/:id", async (req, res) => {
+        app.delete("/orders/:id", async (req, res) => {
             console.log(req.params.id);
 
             orderCollection
                 .deleteOne({ _id: ObjectId(req.params.id) })
                 .then((result) => {
                     res.send(result);
+                });
+        });
+
+        // get all order by email query
+        app.get("/orders/:email", (req, res) => {
+            console.log(req.params);
+            orderCollection
+                .find({ email: req.params.email })
+                .toArray((err, results) => {
+                    res.send(results);
                 });
         });
 
