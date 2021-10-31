@@ -30,13 +30,11 @@ client.connect((err) => {
     });
 
     // get single prodcut
-    app.get("/products/:id", (req, res) => {
-        console.log(req.params.id);
-        productsCollection
-            .find({ _id: ObjectId(req.params.id) })
-            .toArray((err, results) => {
-                res.send(results[0]);
-            });
+    app.get('/products/:id', (req, res) => {
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) };
+        const product = await productsCollection.findOne(query);
+        res.send(product)
     });
     //add product
     app.post("/products", (req, res) => {
@@ -64,7 +62,6 @@ client.connect((err) => {
     //delete order from the database
     app.delete("/orders/:id", async (req, res) => {
         console.log(req.params.id);
-
         ordersCollection
             .deleteOne({ _id: ObjectId(req.params.id) })
             .then((result) => {
