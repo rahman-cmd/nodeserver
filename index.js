@@ -54,7 +54,7 @@ async function run() {
             const order = req.body;
             const result = await orderCollection.insertOne(order);
             res.json(result);
-        })
+        });
 
         // GET ORDERS API
         app.get('/orders', async (req, res) => {
@@ -63,13 +63,15 @@ async function run() {
             res.send(services);
         });
 
-        // DELETE ORDERS API
-        app.delete('/orders/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const result = await orderCollection.deleteOne(query);
-            console.log('deleting user with id', result);
-            res.json(result);
+        //delete product from the database
+        app.delete("/deleteProduct/:id", async (req, res) => {
+            console.log(req.params.id);
+
+            orderCollection
+                .deleteOne({ _id: ObjectId(req.params.id) })
+                .then((result) => {
+                    res.send(result);
+                });
         });
 
     }
