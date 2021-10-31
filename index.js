@@ -8,10 +8,6 @@ const ObjectId = require("mongodb").ObjectId;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.cnelf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
 const port = 5000;
 const app = express();
 app.use(cors());
@@ -23,8 +19,8 @@ app.get("/", (req, res) => {
 });
 
 client.connect((err) => {
-    const productsCollection = client.db("foodMaster").collection("products");
-    const ordersCollection = client.db("foodMaster").collection("orders");
+    const productsCollection = client.db("online_shop").collection("products");
+    const ordersCollection = client.db("online_shop").collection("orders");
 
     //  make route and get data
     app.get("/products", (req, res) => {
