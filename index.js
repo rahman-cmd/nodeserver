@@ -44,6 +44,22 @@ client.connect((err) => {
         });
     });
 
+    //UPDATE API
+    app.put('/orders/:id', async (req, res) => {
+        const id = req.params.id;
+        const updatedSutes = req.params;
+        const filter = { _id: ObjectId(id) };
+        const options = { upsert: true };
+        const updateDoc = {
+            $set: {
+                status: updatedSutes.status,
+            },
+        };
+        const result = await usersCollection.updateOne(filter, updateDoc, options)
+        console.log('updating', id)
+        res.json(result)
+    });
+
     //  order get data
     app.get("/orders", (req, res) => {
         ordersCollection.find({}).toArray((err, results) => {
