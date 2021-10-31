@@ -48,7 +48,7 @@ client.connect((err) => {
 
     //  order get data
     app.get("/orders", (req, res) => {
-        productsCollection.find({}).toArray((err, results) => {
+        ordersCollection.find({}).toArray((err, results) => {
             res.send(results);
         });
     });
