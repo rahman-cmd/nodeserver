@@ -25,25 +25,10 @@ async function run() {
         const orderCollection = database.collection('orders');
 
         //GET Products API
-        app.get('/products', async (req, res) => {
-            const cursor = productCollection.find({});
-            const page = req.query.page;
-            const size = parseInt(req.query.size);
-            let products;
-            const count = await cursor.count();
-
-            if (page) {
-                products = await cursor.skip(page * size).limit(size).toArray();
-            }
-            else {
-                products = await cursor.toArray();
-            }
-
-            res.send({
-                count,
-                products
+        app.get("/products", (req, res) => {
+            productCollection.find({}).toArray((err, results) => {
+                res.send(results);
             });
-
         });
 
         // Use POST to get data by keys
