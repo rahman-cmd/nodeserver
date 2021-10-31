@@ -61,13 +61,15 @@ client.connect((err) => {
         });
     });
 
-    // DELETE ORDERS API
-    app.delete('/orders/:id', async (req, res) => {
-        const id = req.params.id;
-        const query = { _id: ObjectId(id) };
-        const result = await ordersCollection.deleteOne(query);
-        console.log('deleting user with id', result);
-        res.json(result);
+    //delete order from the database
+    app.delete("/orders/:id", async (req, res) => {
+        console.log(req.params.id);
+
+        ordersCollection
+            .deleteOne({ _id: ObjectId(req.params.id) })
+            .then((result) => {
+                res.send(result);
+            });
     });
 
     // get all order by email query
