@@ -36,8 +36,7 @@ client.connect((err) => {
     });
 
     // get single prodcut
-
-    app.get("/singleProduct/:id", (req, res) => {
+    app.get("/products/:id", (req, res) => {
         console.log(req.params.id);
         productsCollection
             .find({ _id: ObjectId(req.params.id) })
@@ -46,7 +45,7 @@ client.connect((err) => {
             });
     });
     //add product
-    app.post("/addProducts", (req, res) => {
+    app.post("/products", (req, res) => {
         console.log(req.body);
         productsCollection.insertOne(req.body).then((documents) => {
             res.send(documents.insertedId);
@@ -54,14 +53,14 @@ client.connect((err) => {
     });
 
     //add order in database
-    app.post("/addOrders", (req, res) => {
+    app.post("/orders", (req, res) => {
         ordersCollection.insertOne(req.body).then((result) => {
             res.send(result);
         });
     });
 
     // get all order by email query
-    app.get("/myOrders/:email", (req, res) => {
+    app.get("/orders/:email", (req, res) => {
         console.log(req.params);
         ordersCollection
             .find({ email: req.params.email })
